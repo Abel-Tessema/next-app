@@ -3,7 +3,7 @@
 function AddToCart() {
   return (
     <div>
-      <button onClick={() => console.log('Click')}>Click Me</button>
+      <button onClick={() => console.log('Click')}>Add to Cart</button>
     </div>
   );
 }
