@@ -1,9 +1,8 @@
 import AddToCart from "@/app/components/AddToCart";
-import styles from './ProductCard.module.css';
 
 function ProductCard() {
   return (
-    <div className={styles.card}>
+    <div className='p-5 my-5 bg-sky-500 text-white text-xl hover:bg-sky-400 hover:cursor-pointer'>
       <AddToCart/>
     </div>
   );
