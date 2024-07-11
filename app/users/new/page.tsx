@@ -1,7 +1,17 @@
+'use client';
+
+import {useRouter} from "next/navigation";
 
 function NewUserPage() {
+  const {push} = useRouter();
+
   return (
-    <div>NewUserPage</div>
+    <button
+      className='btn btn-primary'
+      onClick={() => push('/users')}
+    >
+      Create
+    </button>
   );
 }
 
