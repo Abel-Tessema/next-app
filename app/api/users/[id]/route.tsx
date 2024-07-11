@@ -18,23 +18,25 @@ export async function GET(request: NextRequest, {params: {id}}: Props) {
 }
 
 export async function PUT(request: NextRequest, {params: {id}}: Props) {
-  /*
-   * Validate the request body.
-   * If it's invalid, return 400 (bad request).
-   * Else, fetch the user with the given ID.
-     * If it doesn't exist, return 404.
-     * Else, update the user and return it.
-   */
   const body = await request.json();
   const validation = userSchema.safeParse(body);
 
   if (!validation.success)
     return NextResponse.json(validation.error.errors, {status: 400});
 
-  if (id > 10) // Simulating a user not found error.
+  const user = await prisma.user.findUnique({
+    where: {id: parseInt(id)}
+  });
+
+  if (!user)
     return NextResponse.json({error: 'User not found.'}, {status: 404});
 
-  return NextResponse.json({id: id, name: body.name}, {status: 200});
+  const updatedUser = await prisma.user.update({
+    data: {name: body.name, email: body.email},
+    where: {id: parseInt(id)}
+  })
+
+  return NextResponse.json(updatedUser);
 }
 
 export async function DELETE(request: NextRequest, {params: {id}}: Props) {
