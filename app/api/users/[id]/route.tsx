@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import schema from "@/app/api/users/schema";
+import userSchema from "@/app/api/users/userSchema";
 
 interface Props {
   params: {id: number}
@@ -26,7 +26,7 @@ export async function PUT(request: NextRequest, {params: {id}}: Props) {
      * Else, update the user and return it.
    */
   const body = await request.json();
-  const validation = schema.safeParse(body);
+  const validation = userSchema.safeParse(body);
 
   if (!validation.success)
     return NextResponse.json(validation.error.errors, {status: 400});

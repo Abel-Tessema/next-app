@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
-import schema from "@/app/api/users/schema";
+import userSchema from "@/app/api/users/userSchema";
 
 /*
 * The 'request' parameter is not being used here, and you may think to remove it.
@@ -15,7 +15,7 @@ export function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const validation = schema.safeParse(body);
+  const validation = userSchema.safeParse(body);
 
   if (!validation.success)
     return NextResponse.json(validation.error.errors, {status: 400});
