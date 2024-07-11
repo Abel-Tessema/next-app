@@ -5,7 +5,12 @@ interface Props {
 }
 
 export function GET(request: NextRequest, {params: {id}}: Props) {
-  if (id > 10)
+  /*
+  * Fetch the data from the database.
+  * If it's not found, return 404.
+  * Else, return the data.
+  * */
+  if (id > 10) // Simulating a user not found error.
     return NextResponse.json({error: 'User not found.'}, {status: 404})
 
   return NextResponse.json({id: 1, name: 'Bela Jash'})
@@ -27,4 +32,16 @@ export async function PUT(request: NextRequest, {params: {id}}: Props) {
     return NextResponse.json({error: 'User not found.'}, {status: 404});
 
   return NextResponse.json({id: id, name: body.name}, {status: 200});
+}
+
+export async function DELETE(request: NextRequest, {params: {id}}: Props) {
+  /*
+  * Fetch the user from the database.
+  * If it's not found, return 404.
+  * Else, delete the user, and return 200.
+  * */
+  if (id > 10) // Simulating a user not found error.
+    return NextResponse.json({error: 'User not found.'}, {status: 404});
+
+  return NextResponse.json({});
 }
