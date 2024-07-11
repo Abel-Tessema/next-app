@@ -1,24 +1,35 @@
-'use client';
-
-import React, {useState} from 'react';
+import React from 'react';
 import {sort} from "fast-sort";
-import {User} from "@/app/users/page";
+import Link from "next/link";
 
-interface Props {
-  users: User[]
+interface User {
+  id: number,
+  name: string,
+  email: string,
 }
 
-function UsersTable({users}: Props) {
-  const [sortedUsers, setSortedUsers] = useState(users);
-  const sortByName = () => setSortedUsers(sort(users).asc(user => user.name));
-  const sortByEmail = () => setSortedUsers(sort(users).asc(user => user.email));
+interface Props {
+  sortOrder: string
+}
+
+async function UsersTable({sortOrder}: Props) {
+  const response = await fetch(
+    'https://jsonplaceholder.typicode.com/users',
+    {cache: 'no-store'}
+  );
+  const users: User[] = await response.json();
+  const sortedUsers = sort(users).asc(
+    sortOrder === 'email'
+      ? user => user.name
+      : user => user.email
+  );
 
   return (
     <table className='table table-bordered'>
       <thead>
       <tr>
-        <th><button onClick={sortByName}>Name</button></th>
-        <th><button onClick={sortByEmail}>Email</button></th>
+        <th><Link href='?sortOrder=name'>Name</Link></th>
+        <th><Link href='?sortOrder=email'>Email</Link></th>
       </tr>
       </thead>
       <tbody>
