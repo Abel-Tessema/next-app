@@ -1,27 +1,28 @@
-import React from 'react';
+'use client';
 
-interface User {
-  id: number,
-  name: string,
-  email: string,
+import React, {useState} from 'react';
+import {sort} from "fast-sort";
+import {User} from "@/app/users/page";
+
+interface Props {
+  users: User[]
 }
 
-async function UsersTable() {
-  const response = await fetch(
-    'https://jsonplaceholder.typicode.com/users',
-    {cache: 'no-store'}
-  );
-  const users: User[] = await response.json();
+function UsersTable({users}: Props) {
+  const [sortedUsers, setSortedUsers] = useState(users);
+  const sortByName = () => setSortedUsers(sort(users).asc(user => user.name));
+  const sortByEmail = () => setSortedUsers(sort(users).asc(user => user.email));
+
   return (
     <table className='table table-bordered'>
       <thead>
       <tr>
-        <th>Name</th>
-        <th>Email</th>
+        <th><button onClick={sortByName}>Name</button></th>
+        <th><button onClick={sortByEmail}>Email</button></th>
       </tr>
       </thead>
       <tbody>
-      {users.map(user => (
+      {sortedUsers.map(user => (
         <tr key={user.id}>
           <td>{user.name}</td>
           <td>{user.email}</td>
