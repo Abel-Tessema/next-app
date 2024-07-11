@@ -1,4 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
+import schema from "@/app/api/users/schema";
 
 interface Props {
   params: {id: number}
@@ -25,8 +26,10 @@ export async function PUT(request: NextRequest, {params: {id}}: Props) {
      * Else, update the user and return it.
    */
   const body = await request.json();
-  if (!body.name)
-    return NextResponse.json({error: 'Name is required.'}, {status: 400});
+  const validation = schema.safeParse(body);
+
+  if (!validation.success)
+    return NextResponse.json(validation.error.errors, {status: 400});
 
   if (id > 10) // Simulating a user not found error.
     return NextResponse.json({error: 'User not found.'}, {status: 404});
