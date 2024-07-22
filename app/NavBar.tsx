@@ -14,7 +14,7 @@ function NavBar() {
       {status === 'loading' && <div>Loading...</div>}
       {status === 'authenticated' &&
           <>
-              <div>{session?.user?.name}</div>
+              <div>{session?.user?.email}</div>
               <Link href='api/auth/signout'>Log Out</Link>
           </>
       }
