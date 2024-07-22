@@ -1,40 +1,39 @@
-import Image from "next/image";
-import animeGirl from '@/public/images/Anime Girl.jpg'
-import {Metadata} from "next";
+'use client';
 
-export default async function Home() {
+// import HeavyComponent from "@/app/components/HeavyComponent";
+import {useState} from "react";
+// import dynamic from "next/dynamic";
+// import _ from 'lodash';
+
+// const HeavyComponent = dynamic(
+//   () => import('@/app/components/HeavyComponent'),
+//   {
+//     loading: () => <p>Loading...</p>,
+//     ssr: false // server-side rendering
+//   }
+// );
+
+export default function Home() {
+  const [isVisible, setVisible] = useState<boolean>(false);
+
   return (
-    <main className='relative h-screen'>
-      {/*<Image src={animeGirl} alt='Anime girl' />*/}
-      {/*<h1 className='font-poppins'>Yahallo!</h1>*/}
+    <main>
       <h1>Yahallo!</h1>
-      {/*<Image*/}
-      {/*  src='https://bit.ly/react-cover'*/}
-      {/*  alt='Anime girl'*/}
-      {/*  // width={300}*/}
-      {/*  // height={170}*/}
-      {/*  fill*/}
-      {/*  // style={{objectFit: 'contain'}}*/}
-      {/*  // style={{objectFit: 'cover'}}*/}
-      {/*  className='object-cover'*/}
-      {/*  // sizes='100vw'*/}
-      {/*  sizes='(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw'*/}
-      {/*  quality={100} // 1-100. Default is 75.*/}
-      {/*  priority*/}
-      {/*/>*/}
+      {/*<button onClick={() => setVisible(true)} className='btn btn-primary'>Show</button>*/}
+      <button
+        onClick={async () => {
+          const _ = (await import('lodash')).default;
+          const users = [
+            {name: 'c'},
+            {name: 'b'},
+            {name: 'a'}
+          ];
+          const sorted = _.orderBy(users, ['name']);
+          console.log(sorted);
+        }}
+        className='btn btn-primary'>Show
+      </button>
+      {/*{isVisible && <HeavyComponent/>}*/}
     </main>
   )
-}
-
-// export const metadata: Metadata = {
-//   title: '...' // Overwrites the title property of the root metadata, i.e., that of layout.tsx.
-// }
-
-export async function generateMetadata(): Promise<Metadata> {
-  const product = await fetch('');
-
-  return {
-    title: 'product.title',
-    description: 'product.description'
-  }
 }
