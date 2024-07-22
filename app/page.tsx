@@ -7,7 +7,7 @@ export default async function Home() {
 
   return (
     <main>
-      <h1>Yahallo, {session && session.user!.name}!</h1>
+      <h1>Yahallo{session && `, ${session.user!.name}`}!</h1>
       <Link href='users'>Users</Link>
       <ProductCard/>
     </main>
