@@ -4,6 +4,7 @@ import {Inter} from 'next/font/google'
 import {ReactNode} from "react";
 import NavBar from "@/app/NavBar";
 import AuthProvider from "@/app/auth/Provider";
+import GoogleAnalyticsScript from "@/app/GoogleAnalyticsScript";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -13,16 +14,17 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout(
-  {children}: {children: ReactNode }
+  {children}: { children: ReactNode }
 ) {
   return (
     <html lang="en" data-theme='winter'>
-      <body className={inter.className}>
-        <AuthProvider>
-          <NavBar/>
-          <main className='p-5'>{children}</main>
-        </AuthProvider>
-      </body>
+    <GoogleAnalyticsScript/>
+    <body className={inter.className}>
+    <AuthProvider>
+      <NavBar/>
+      <main className='p-5'>{children}</main>
+    </AuthProvider>
+    </body>
     </html>
   )
 }
