@@ -1,5 +1,6 @@
 import Image from "next/image";
 import animeGirl from '@/public/images/Anime Girl.jpg'
+import {Metadata} from "next";
 
 export default async function Home() {
   return (
@@ -23,4 +24,17 @@ export default async function Home() {
       {/*/>*/}
     </main>
   )
+}
+
+// export const metadata: Metadata = {
+//   title: '...' // Overwrites the title property of the root metadata, i.e., that of layout.tsx.
+// }
+
+export async function generateMetadata(): Promise<Metadata> {
+  const product = await fetch('');
+
+  return {
+    title: 'product.title',
+    description: 'product.description'
+  }
 }
