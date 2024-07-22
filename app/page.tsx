@@ -1,15 +1,24 @@
-import Link from "next/link";
-import ProductCard from "@/app/components/ProductCard";
-import {getServerSession} from "next-auth";
+import Image from "next/image";
+import animeGirl from '@/public/images/Anime Girl.jpg'
 
 export default async function Home() {
-  const session = await getServerSession();
-
   return (
-    <main>
-      <h1>Yahallo{session && `, ${session.user!.email}`}!</h1>
-      <Link href='users'>Users</Link>
-      <ProductCard/>
+    <main className='relative h-screen'>
+      {/*<Image src={animeGirl} alt='Anime girl' />*/}
+      <Image
+        src='https://bit.ly/react-cover'
+        alt='Anime girl'
+        // width={300}
+        // height={170}
+        fill
+        // style={{objectFit: 'contain'}}
+        // style={{objectFit: 'cover'}}
+        className='object-cover'
+        // sizes='100vw'
+        sizes='(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw'
+        quality={100} // 1-100. Default is 75.
+        priority
+      />
     </main>
   )
 }
